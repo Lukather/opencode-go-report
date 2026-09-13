@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCode Go — Guida alla scelta del modello · 10 settembre 2026</title>
+<style>
+  :root{
+    --bg:#0f0e0c; --card:#181614; --card2:#1f1c19; --line:#2e2a25;
+    --fg:#e8e3da; --muted:#a89f92; --dim:#7b7368;
+    --acc:#d4a96c; --acc2:#8fb3a1; --warn:#d98b6a; --good:#8fb3a1;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+       font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 28px 96px}
+  header{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:40px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+          color:var(--acc);margin:0 0 14px}
+  h1{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1.15;margin:0 0 14px;letter-spacing:-.01em}
+  h1 em{font-style:italic;color:var(--acc)}
+  .sub{color:var(--muted);margin:0;max-width:70ch}
+  h2{font-family:var(--serif);font-weight:400;font-size:26px;margin:52px 0 8px;letter-spacing:-.01em}
+  h2 .n{font-family:var(--mono);font-size:12px;color:var(--acc);vertical-align:super;margin-right:10px;letter-spacing:.1em}
+  h3{font-size:14px;font-weight:600;letter-spacing:.02em;margin:28px 0 10px;color:var(--fg)}
+  .lede{color:var(--muted);margin:6px 0 22px;max-width:78ch}
+  p{margin:0 0 14px}
+  code{font-family:var(--mono);font-size:.87em;background:#252119;color:var(--acc);
+       padding:2px 6px;border-radius:4px}
+  a{color:var(--acc)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 6px}
+  th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+     color:var(--dim);font-weight:500;padding:0 10px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:9px 10px;border-bottom:1px solid #221f1b;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.num{font-family:var(--mono);font-size:12.5px;text-align:right;white-space:nowrap}
+  .name{font-weight:600;white-space:nowrap}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+       padding:2px 6px;border-radius:3px;border:1px solid var(--line);color:var(--muted)}
+  .tag.pick{color:#1a1713;background:var(--acc);border-color:var(--acc);font-weight:600}
+  .tag.no{color:var(--warn);border-color:#4a332a}
+  .tag.v{color:var(--acc2);border-color:#2c3d36}
+  .bar{height:6px;background:#2a261f;border-radius:3px;overflow:hidden;min-width:70px}
+  .bar > i{display:block;height:100%;background:var(--acc);border-radius:3px}
+  .bar.s > i{background:#6f8f7f}
+  .bar.w > i{background:var(--warn)}
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-left:2px solid var(--acc);
+        border-radius:8px;padding:18px 20px}
+  .card.s{border-left-color:var(--acc2)}
+  .card.w{border-left-color:var(--warn)}
+  .card h4{margin:0 0 6px;font-size:15px;font-weight:600}
+  .card .why{color:var(--muted);font-size:13.5px;margin:0 0 10px}
+  .card .meta{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.8}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 8px}
+  .kpi div{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .kpi b{display:block;font-family:var(--mono);font-size:20px;color:var(--acc);font-weight:500}
+  .kpi span{font-size:11.5px;color:var(--dim);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .timeline{margin:18px 0 10px}
+  .tl-row{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+  .tl-lab{width:118px;font-family:var(--mono);font-size:11px;color:var(--dim);flex:none}
+  .tl-bar{position:relative;flex:1;height:26px;background:#22201c;border-radius:5px;overflow:hidden;
+          border:1px solid var(--line)}
+  .tl-bar i{position:absolute;top:0;bottom:0;background:var(--warn);opacity:.75}
+  .tl-bar i.off{background:#2b3a33;opacity:1}
+  .tl-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;
+            color:var(--dim);padding-left:130px;margin-top:2px}
+  .note{background:#1c1a16;border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin:18px 0;
+        font-size:13.5px;color:var(--muted)}
+  .note b{color:var(--fg)}
+  ul{margin:8px 0 16px;padding-left:20px;color:var(--muted)}
+  li{margin-bottom:7px}
+  li b{color:var(--fg)}
+  footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);
+         font-size:12px;color:var(--dim);font-family:var(--mono);line-height:1.9}
+  footer a{color:var(--muted)}
+  .scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">Report · OpenCode Go · 10 settembre 2026</p>
+  <h1>Quale modello usare su <em>OpenCode Go</em></h1>
+  <p class="sub">Analisi di convenienza, qualità e compatibilità con Hermes dei 26 modelli inclusi nella sottoscrizione
+  da $10/mese. Ogni numero è ricondotto alla fonte; le stime di capacità sono derivate dalla tabella ufficiale dei limiti.</p>
+</header>
+
+<section id="update-0912">
+  <p class="kicker">Aggiornamento · 12 settembre 2026</p>
+  <h1 style="font-size:28px">Cosa è cambiato in due giorni</h1>
+  <p class="sub">Dati ricontrollati il 12 settembre contro tre fonti indipendenti: doc ufficiale live,
+  tracker <a href="https://ocgo-pricing.all-the.rest">ocgo-pricing.all-the.rest</a> (i cui dati sono embedded
+  nel bundle JS della SPA) ed endpoint <code>/zen/go/v1/models</code>. Il tracker è utile come radar ma
+  <b>non sempre coincide con la doc ufficiale</b>: dove divergono, sotto vale la doc.</p>
+
+  <div class="scroll">
+  <table>
+  <thead><tr><th>Modello</th><th>Prima (10 set)</th><th>Ora (12 set)</th><th>Impatto</th></tr></thead>
+  <tbody>
+  <tr><td class="name">GLM-5.3-Flash</td><td>usage $15 · 1,5× · 7.900 req/mese</td>
+      <td><b>usage $60 · 6× · 31.580 req/mese</b></td>
+      <td>⬆ Promosso nel gruppo 6×: il miglior modello "economico ma capace" del listino, con input multimodale (testo, immagini, video, PDF)</td></tr>
+  <tr><td class="name">DeepSeek V4 Flash</td><td>off-peak $0,22/$0,66 · 37.800 req/mese</td>
+      <td><b>off-peak $0,15/$0,60 · 65.000 req/mese</b></td>
+      <td>⬆ Sconto input −32%, output −9%; allowance effettiva +72% a parità di usage $30. L'alias <code>offpeak</code> migliora da solo</td></tr>
+  <tr><td class="name">DeepSeek V4.1 Flash</td><td>—</td>
+      <td>nuovo: off-peak $0,15/$0,60 · usage $15 · input immagini</td>
+      <td>~ Nuova generazione con visione, ma a parità di listino rende la metà di V4 Flash ($15 vs $30): per la sottoscrizione resta preferibile V4 Flash. Nota: il tracker riporta usage $60, la doc dice $15 — vale la doc</td></tr>
+  <tr><td class="name">Omen Alpha</td><td>usage $100 · 10× · in doc</td>
+      <td><b>rimosso dalla doc ufficiale</b>, ancora attivo sul relay</td>
+      <td>⚠ In rotazione di uscita: non usarlo per nulla di critico; può sparire senza preavviso</td></tr>
+  <tr><td class="name">Limiti</td><td>$12/5h · $30/sett · $60/mese "base"</td>
+      <td>ridefiniti: 5h = 20%, sett = 50%, mese = 100% del limite mensile <em>del modello</em></td>
+      <td>— Chiarifica formale, i numeri nel report erano già corretti (per un modello $60: $12/$30/$60)</td></tr>
+  <tr><td class="name">Modelli free</td><td>—</td>
+      <td>la doc aggiunge: "esaurito il limite, continua con i modelli free"</td>
+      <td>— Sono modelli Zen (<code>mimo-v2.5-free</code> ecc.), testati: non disponibili sul relay Go. Da ignorare</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+  <b>Verdetto sui quattro ruoli: nessun cambiamento necessario.</b>
+  <ul style="margin-top:8px">
+    <li><b>daily → glm-5.2</b> invariato ($60, 6×, stesso listino): resta il default giusto.</li>
+    <li><b>hard → kimi-k3</b> invariato ($15, 1,5×).</li>
+    <li><b>vol → mimo-v2.5</b> invariato: con 150.400 req/mese resta il re del volume; GLM-5.3-Flash ora è 6× ma costa di più a token e ha un quinto delle richieste.</li>
+    <li><b>offpeak → deepseek-v4-flash</b> invariato e <b>migliorato</b>: sconto prezzi e +72% di richieste stimate. V4.1 Flash è più nuovo e vede le immagini, ma a $15 di usage rende la metà di V4 Flash a $30.</li>
+  </ul>
+  Nuova opzione da tenere a mente: <b>GLM-5.3-Flash</b> come "qualità economica" — se un giorno la qualità di MiMo su un job cron delude (es. digest), è il candidato naturale per sostituirlo, a parità di allowance $60.
+  </div>
+
+  <div class="note" style="border-left-color:var(--warn)">
+  <b>Avviso ZDR DeepSeek in scadenza.</b> L'accordo di zero-retention è confermato valido <b>fino al 30 settembre 2026</b>
+  (rinnovato mensilmente). Nessun cambio di condizioni oggi, ma mancano 18 giorni: da ricontrollare il 1° ottobre.
+  </div>
+</section>
+
+<h2><span class="n">01</span>La leva vera: il moltiplicatore, non il prezzo per token</h2>
+<p class="lede">I limiti di Go sono espressi in <b>valore in dollari</b>, non in richieste: $12 ogni 5 ore,
+$30 a settimana, $60 al mese. Per ogni modello la doc indica però un'<b>allowance mensile effettiva</b> diversa:
+è lì che sta il 4× o 6× di differenza tra due modelli con lo stesso listino.</p>
+
+<div class="kpi">
+  <div><span>Abbonamento</span><b>$10/mese</b></div>
+  <div><span>Finestra 5 ore</span><b>$12</b></div>
+  <div><span>Settimanale</span><b>$30</b></div>
+  <div><span>Mensile</span><b>$60</b></div>
+</div>
+
+<p class="lede">Moltiplicatore = allowance mensile ÷ costo dell'abbonamento. Indica quante volte il valore che
+consumi supera quello che paghi. È il criterio che pesa più del prezzo per token, perché i token per sessione
+sono più o meno gli stessi qualunque modello tu scelga.</p>
+
+<div class="scroll">
+<table>
+<thead><tr>
+  <th>Modello</th><th>Moltipl.</th><th>Domanda</th><th class="num">Req/mese</th><th class="num">Allowance</th>
+  <th class="num">In / Out $/M</th><th class="num">Ctx</th><th>Visione</th><th>Nota</th>
+</tr></thead>
+<tbody>
+<tr><td class="name">Omen Alpha</td><td><div class="bar"><i style="width:100%"></i></div>10×</td><td class="num">57.900</td><td class="num">$100</td><td class="num">0,20 / 0,66</td><td class="num">500K</td><td><span class="tag v">sì</span></td><td>Stealth, ~189 tok/s</td></tr>
+<tr><td class="name">GLM-5.2</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">4.300</td><td class="num">$60</td><td class="num">1,40 / 4,40</td><td class="num">1M</td><td><span class="tag">no</span></td><td>62,1% SWE-bench Pro — top open</td></tr>
+<tr><td class="name">GLM-5.1</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">4.300</td><td class="num">$60</td><td class="num">1,40 / 4,40</td><td class="num">203K</td><td><span class="tag">no</span></td><td>58,4%</td></tr>
+<tr><td class="name">Kimi K2.7 Code</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">6.750</td><td class="num">$60</td><td class="num">0,95 / 4,00</td><td class="num">262K</td><td><span class="tag v">sì</span></td><td>Specializzato code</td></tr>
+<tr><td class="name">LongCat-2.0</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">57.200</td><td class="num">$60</td><td class="num">0,30 / 1,20</td><td class="num">1M</td><td><span class="tag">no</span></td><td>Sessione lunga</td></tr>
+<tr><td class="name">MiMo-V2.5</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">150.400</td><td class="num">$60</td><td class="num">0,14 / 0,28</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Re del volume</td></tr>
+<tr><td class="name">MiniMax M3</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">16.000</td><td class="num">$60</td><td class="num">0,30 / 1,20</td><td class="num">1M</td><td><span class="tag">no</span></td><td>59,0%</td></tr>
+<tr><td class="name">Qwen3.7 Plus</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">21.600</td><td class="num">$60</td><td class="num">0,40 / 1,60</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>57,6%</td></tr>
+<tr><td class="name">Qwen3.6 Plus</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">16.300</td><td class="num">$60</td><td class="num">0,50 / 3,00</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>—</td></tr>
+<tr><td class="name">Hy3</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">21.500</td><td class="num">$60</td><td class="num">0,14 / 0,58</td><td class="num">256K</td><td><span class="tag">no</span></td><td>Buono su Go (4,5/5 su Bank Feed)</td></tr>
+<tr><td class="name">GPT 5.6 Luna</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">10.250</td><td class="num">$15</td><td class="num">0,20 / 1,20</td><td class="num">1,05M</td><td><span class="tag v">sì</span></td><td>62,7% — miglior qualità/prezzo closed</td></tr>
+<tr><td class="name">DeepSeek V4 Flash</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">37.800</td><td class="num">$30</td><td class="num">0,44 / 1,32<br><span style="color:var(--dim)">off-peak 0,22/0,66</span></td><td class="num">1M</td><td><span class="tag">no</span></td><td>52,6%; <b>263 pt/$</b></td></tr>
+<tr><td class="name">Qwen3.8 Flash</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">27.000</td><td class="num">$30</td><td class="num">0,15 / 0,47</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Volume con visione</td></tr>
+<tr><td class="name">GLM-5.3</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">1.080</td><td class="num">$15</td><td class="num">1,40 / 4,40</td><td class="num">1M</td><td><span class="tag">no</span></td><td>Miglior agente, ma 1/4 dell'allowance di 5.2</td></tr>
+<tr><td class="name">Kimi K3</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">490</td><td class="num">$15</td><td class="num">3,00 / 15,00</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>2,8T, frontier — caro</td></tr>
+<tr><td class="name">Qwen3.8 Max</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">810</td><td class="num">$15</td><td class="num">2,00 / 6,00</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>67,7% (vendor)</td></tr>
+<tr><td class="name">Grok 4.6</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">845</td><td class="num">$15</td><td class="num">2,00 / 6,00</td><td class="num">500K</td><td><span class="tag v">sì</span></td><td>30 giorni di retention</td></tr>
+<tr><td class="name">DeepSeek V4 Pro</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">5.200</td><td class="num">$15</td><td class="num">1,32 / 3,96<br><span style="color:var(--dim)">off-peak 0,66/1,98</span></td><td class="num">1M</td><td><span class="tag">no</span></td><td>55,4%; attuale <code>default_model</code></td></tr>
+<tr><td class="name">MiMo-V2.5-Pro</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">16.300</td><td class="num">$15</td><td class="num">0,44 / 0,87</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>57,2%</td></tr>
+<tr><td class="name">Muse Spark 1.3</td><td><div class="bar w"><i style="width:60%"></i></div>6×</td><td class="num">226.600</td><td class="num">$60</td><td class="num">0,10 / 0,20</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td><span class="tag no">allena sui tuoi prompt</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<b>L'anomalia da sfruttare.</b> GLM-5.3 e GLM-5.2 hanno lo <b>stesso identico listino</b> ($1,40/$4,40),
+ma 5.3 vale <b>1,5×</b> e 5.2 vale <b>6×</b>: quattro volte l'allowance. Motivo dichiarato da OpenCode —
+su 5.3 non hanno ancora negoziato sconti di volume. Se la differenza di qualità tra i due non ti è
+indispensabile, GLM-5.2 è la scelta razionale. Vale anche per Kimi K3 vs K2.7 Code e Qwen3.8 Max vs Qwen3.7 Plus.
+</div>
+
+<h3>Resto della lineup</h3>
+<div class="scroll">
+<table>
+<thead><tr><th>Modello</th><th>Moltipl.</th><th class="num">Req/mese</th><th class="num">In / Out $/M</th><th class="num">Ctx</th><th>Visione</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td class="name">Kimi K2.6</td><td>6×</td><td class="num">5.750</td><td class="num">0,95 / 4,00</td><td class="num">262K</td><td><span class="tag v">sì</span></td><td>58,6% — buona alternativa a K2.7 Code</td></tr>
+<tr><td class="name">MiniMax M2.7</td><td>6×</td><td class="num">17.000</td><td class="num">0,30 / 1,20</td><td class="num">205K</td><td><span class="tag">no</span></td><td>56,2%; cache write a $0,375</td></tr>
+<tr><td class="name">Qwen3.7 Max</td><td>3×</td><td class="num">840</td><td class="num">2,50 / 7,50</td><td class="num">1M</td><td><span class="tag">no</span></td><td>60,6%, ma 840 req/mese</td></tr>
+<tr><td class="name">Hy4 preview</td><td>3×</td><td class="num">6.770</td><td class="num">0,83 / 2,50</td><td class="num">1M</td><td><span class="tag">no</span></td><td>Preview, non ancora benchmarkato</td></tr>
+<tr><td class="name">DeepSeek V4 Flash Vision</td><td>1,5×</td><td class="num">18.900</td><td class="num">0,44 / 1,32<br><span style="color:var(--dim)">off-peak 0,22/0,66</span></td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Unico DeepSeek con visione — 1,5× però</td></tr>
+<tr><td class="name">Muse Spark 1.2</td><td>6×</td><td class="num">226.600</td><td class="num">0,10 / 0,20</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td><span class="tag no">allena sui tuoi prompt</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="n">02</span>DeepSeek peak / off-peak: la finestra italiana è quella sbagliata</h2>
+<p class="lede">DeepSeek V4 Pro, V4 Flash e V4 Flash Vision hanno prezzo doppio in orario di punta. Le ore peak
+dichiarate sono <b>01:00–04:00 e 06:00–10:00 UTC, lunedì–venerdì</b>; tutto il resto (pomeriggio, sera, notte,
+tutto il weekend) è off-peak. Dato che i limiti di Go sono in valore, in off-peak la tua allowance effettiva
+<b>raddoppia</b>.</p>
+
+<div class="timeline">
+  <div class="tl-row"><div class="tl-lab">UTC (lun–ven)</div>
+    <div class="tl-bar"><i class="off" style="left:0%;width:4.17%"></i><i style="left:4.17%;width:12.5%"></i><i class="off" style="left:16.67%;width:8.33%"></i><i style="left:25%;width:16.67%"></i><i class="off" style="left:41.67%;width:58.33%"></i></div></div>
+  <div class="tl-scale"><span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>24</span></div>
+  <div class="tl-row" style="margin-top:12px"><div class="tl-lab">Italia (CEST +2)</div>
+    <div class="tl-bar"><i class="off" style="left:0%;width:12.5%"></i><i style="left:12.5%;width:12.5%"></i><i class="off" style="left:25%;width:8.33%"></i><i style="left:33.33%;width:16.67%"></i><i class="off" style="left:50%;width:50%"></i></div></div>
+  <div class="tl-scale"><span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>24</span></div>
+</div>
+<p style="font-size:12.5px;color:var(--dim);font-family:var(--mono)">arancio = peak (prezzo ×2) · verde = off-peak</p>
+
+<div class="note">
+<b>Conseguenza pratica.</b> Il peak italiano cade <b>03:00–06:00 e 08:00–12:00</b>: esattamente la tua mattina
+lavorativa. Una sessione intensa su DeepSeek tra le 9 e mezzogiorno consuma il doppio di una identica fatta
+alle 15. Le sessioni DeepSeek pesanti vanno spostate al pomeriggio o alla sera. Attenzione anche alla finestra
+da 5 ore: se la esaurisci in peak, paghi due volte.
+</div>
+
+<h2><span class="n">03</span>Qualità: cosa dicono i dati di terzi</h2>
+<p class="lede">OpenCode non pubblica benchmark per modello. Queste sono le fonti terze più solide disponibili
+a settembre 2026 — da leggere come indicazione, non come verità: le rilevazioni su harness diversi non sono
+confrontabili al punto percentuale.</p>
+
+<h3>SWE-bench Pro — aggregato vendor (ago 2026, llm-stats)</h3>
+<div class="scroll">
+<table>
+<thead><tr><th>Modello</th><th class="num">Score</th><th>Stato</th><th>Modello</th><th class="num">Score</th><th>Stato</th></tr></thead>
+<tbody>
+<tr><td>Qwen3.8 Max</td><td class="num">67,7%</td><td>vendor</td><td>MiniMax M2.7</td><td class="num">56,2%</td><td>open</td></tr>
+<tr><td>GPT 5.6 Luna</td><td class="num">62,7%</td><td>closed</td><td>MiMo-V2.5</td><td class="num">56,1%</td><td>open</td></tr>
+<tr><td>GLM-5.2</td><td class="num">62,1%</td><td>open — terzi</td><td>DeepSeek V4 Pro</td><td class="num">55,4%</td><td>open</td></tr>
+<tr><td>Qwen3.7 Max</td><td class="num">60,6%</td><td>open</td><td>DeepSeek V4 Flash</td><td class="num">52,6%</td><td>open</td></tr>
+<tr><td>MiniMax M3</td><td class="num">59,0%</td><td>open</td><td>MiMo-V2.5-Pro</td><td class="num">57,2%</td><td>open</td></tr>
+<tr><td>GLM-5.1</td><td class="num">58,4%</td><td>open</td><td>Qwen3.7 Plus</td><td class="num">57,6%</td><td>open</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Leaderboard pratica, harness OpenCode — 4 progetti reali (3 set 2026)</h3>
+<p class="lede">Questa è la rilevazione più vicina al tuo caso d'uso: modelli e agenti provati su quattro
+progetti veri (import CSV, sync offline, bank feed Flutter, preventivi spedizione in Go). Punteggio su 40.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th>Modello</th><th class="num">Punti</th><th class="num">Min/prompt</th><th>Su Go</th></tr></thead>
+<tbody>
+<tr><td class="num">5</td><td class="name">Kimi K3</td><td class="num">30,87</td><td class="num">12:49</td><td>1,5× ⚠</td></tr>
+<tr><td class="num">7</td><td class="name">GLM-5.3</td><td class="num">27,96</td><td class="num">4:58</td><td>1,5× ⚠</td></tr>
+<tr><td class="num">11</td><td class="name">Qwen3.8 Max</td><td class="num">25,14</td><td class="num">10:21</td><td>1,5× ⚠</td></tr>
+<tr><td class="num">12</td><td class="name">GPT 5.6 Luna</td><td class="num">24,86</td><td class="num">6:18</td><td>3×</td></tr>
+<tr><td class="num">14</td><td class="name">DeepSeek V4 Flash</td><td class="num">23,18</td><td class="num">5:04</td><td>3×</td></tr>
+<tr><td class="num">15</td><td class="name">Omen Alpha</td><td class="num">23,14</td><td class="num">1:51</td><td>10× ✔</td></tr>
+<tr><td class="num">16</td><td class="name">Qwen3.8 Flash</td><td class="num">22,94</td><td class="num">8:38</td><td>3×</td></tr>
+<tr><td class="num">17</td><td class="name">Kimi K2.7 Code</td><td class="num">22,78</td><td class="num">8:21</td><td>6× ✔</td></tr>
+<tr><td class="num">18</td><td class="name">Hy3</td><td class="num">22,11</td><td class="num">6:35</td><td>6× ✔</td></tr>
+<tr><td class="num">20</td><td class="name">MiniMax M3</td><td class="num">20,77</td><td class="num">6:32</td><td>6× ✔</td></tr>
+<tr><td class="num">27</td><td class="name">DeepSeek V4 Pro</td><td class="num">17,31</td><td class="num">9:06</td><td>1,5× ⚠</td></tr>
+</tbody>
+</table>
+</div>
+<p class="lede">Nota bene due cose: <b>GLM-5.2 e GLM-5.1 non sono nella lista</b> (non ancora testati dall'autore),
+e <b>Omen Alpha è di gran lunga il più veloce</b> (1:51 contro 5–13 minuti), pur con punteggio medio. Su sessioni
+agentiche con molti turni la velocità vale più di due punti di benchmark.</p>
+
+<h3>GLM-5.3: stesso modello base di 5.2, solo post-training</h3>
+<p class="lede">Z.ai non ha rifatto pre-training né architettura: solo RL su ambienti agentici. Il salto però è
+netto e misurabile — Terminal-Bench 3.0 da 4,6% a 28,3%, DeepSWE da 46,2% a 66,9%. Su Terminal-Bench 3.0
+batte Opus 4.8 (21,1%) ma non GPT-5.6 Sol (34,6%) né Fable 5 (33,7%).</p>
+
+<div class="note">
+<b>Segnalazione verificata in parte — non conclusa.</b> La stampa specializzata russa riporta che, dentro i piani
+di sottoscrizione GLM, le chiamate a <b>GLM-5.2 e GLM-5.1 vengono automaticamente reindirizzate a GLM-5.3</b>.
+Ho provato a confermarlo su OpenCode Go e <b>non è confermabile dall'esterno</b>. Cosa ho eseguito:
+<ul style="margin-top:8px">
+  <li>Il campo <code>model</code> della risposta API rimanda indietro l'id richiesto
+  (<code>glm-5.1</code>, <code>glm-5.2</code>, <code>glm-5.3</code>): è un'eco del relay, non un'identificazione dell'upstream.</li>
+  <li>Non esiste un endpoint di metadati per modello: <code>/zen/go/v1/models/glm-5.2</code> restituisce la pagina HTML del sito.</li>
+  <li>L'auto-identificazione del modello non è affidabile: sia <code>glm-5.1</code> sia <code>glm-5.3</code>
+  dichiarano "GLM-4.6", che è una risposta inventata.</li>
+  <li>La doc ufficiale tiene i tre modelli <b>separati</b>, con quote distinte (880 req/5h ciascuno) e allowance
+  diversa ($60 per 5.1/5.2, $15 per 5.3) — argomento <em>contro</em> il redirect su Go. Ma la stessa doc li
+  raggruppa sotto un unico profilo di consumo ("GLM-5.3/5.2/5.1 — 700 input, 52.000 cached, 150 output"),
+  dettaglio che invece è coerente con l'ipotesi.</li>
+</ul>
+Se fosse vero, GLM-5.2 sarebbe contemporaneamente il modello più capace della famiglia <em>e</em> quello con
+4× l'allowance: il miglior affare assoluto della sottoscrizione. Vale il test comportamentale in A/B
+(stessa sessione agentica, confronto del pattern di chiamate ai tool e della latenza): 10 minuti di lavoro.
+</div>
+
+<h2><span class="n">04</span>Raccomandazione: quattro ruoli, non un modello solo</h2>
+
+<div class="grid g3">
+  <div class="card">
+    <h4>Default quotidiano</h4>
+    <p class="why">Coding, agent loop, task medi e lunghi. 6× di allowance, 1M di contesto,
+    62,1% su SWE-bench Pro — il valore più alto tra i pesi aperti, e il più economico da consumare.</p>
+    <p class="meta">modello: <b>glm-5.2</b><br>fallback economico: glm-5.1<br>allowance: $60/mese</p>
+  </div>
+  <div class="card s">
+    <h4>Volume e velocità</h4>
+    <p class="why">Sessioni lunghe, molti turni, tool-call ripetuti, task meccanici. Costo per token
+    quasi nullo e l'allowance più generosa della sottoscrizione dopo Omen Alpha.</p>
+    <p class="meta">modello: <b>mimo-v2.5</b> (150k req/mese)<br>alternativa: omen-alpha ($100, ~189 tok/s)<br>
+    altra: longcat-2.0</p>
+  </div>
+  <div class="card">
+    <h4>Task difficili, una tantum</h4>
+    <p class="why">Debugging sottile, architettura, refactor su repo grandi. Sono i modelli più capaci
+    ma a 1,5×: usali per l'attività singola difficile, non come default di sessione.</p>
+    <p class="meta">modello: <b>kimi-k3</b> o <b>glm-5.3</b><br>attenzione: Kimi K3 degrada se subentri a metà sessione<br>
+    allowance: $15/mese ciascuno</p>
+  </div>
+  <div class="card s">
+    <h4>Finestra off-peak</h4>
+    <p class="why">Se ti trovi a lavorare nel pomeriggio o nel weekend, DeepSeek rende il doppio.
+    Il V4 Flash resta il miglior rapporto punti-per-dollaro di tutta la lineup (263 pt/$).</p>
+    <p class="meta">modello: <b>deepseek-v4-flash</b><br>solo fuori da 01–04 e 06–10 UTC lun–ven<br>
+    allowance effettiva: ~75.600 req/mese</p>
+  </div>
+</div>
+
+<h3>Da non usare come default</h3>
+<ul>
+  <li><b>DeepSeek V4 Pro</b> — 1,5× di allowance ($15), 55,4% su SWE-bench Pro, 27° sulla leaderboard pratica:
+  paga il prezzo di un modello premium per prestazioni medie. È stata a lungo il default di questa configurazione.</li>
+  <li><b>GLM-5.3</b> — stesso listino di GLM-5.2 ma un quarto dell'allowance. Ottimo modello, pessimo contratto.</li>
+  <li><b>Muse Spark 1.2 / 1.3</b> — allowance enorme e prezzo ridicolo, ma il patto è esplicito: Meta usa
+  prompt e completamenti per addestrare modelli futuri. Fuori discussione per qualsiasi cosa di lavoro.</li>
+  <li><b>Grok 4.6 e GPT 5.6 Luna</b> — 30 giorni di retention lato provider. Luna però è l'unico closed
+  che vale il prezzo (62,7% a $0,20/$1,20): tienilo per i task in cui serve quel profilo.</li>
+</ul>
+
+<h2><span class="n">05</span>Compatibilità con Hermes: cosa ho verificato</h2>
+
+<div class="grid g4">
+  <div class="card s"><h4>Header di sessione ✓</h4>
+  <p class="meta">Hermes v0.21.1 include <code>agent/opencode_affinity.py</code>, che invia
+  <code>x-opencode-session</code> su ogni richiesta. Il fix è posteriore alla v0.21.0, quindi la tua
+  build è a posto. Versioni più vecchie ricevono 400 <code>MissingSessionID</code>.</p></div>
+  <div class="card s"><h4>API raggiungibile ✓</h4>
+  <p class="meta">Testato con <code>curl</code> contro <code>/zen/go/v1/chat/completions</code> con header di
+  sessione: <b>200 OK</b> in 1,2–4,6 s su omen-alpha, glm-5.2, glm-5.3, kimi-k2.7-code, qwen3.7-plus, mimo-v2.5.</p></div>
+  <div class="card w"><h4>Visione: solo percorso testo</h4>
+  <p class="meta">Il relay Go rifiuta immagini dentro i risultati dei tool, quindi Hermes ha marcato
+  il provider con <code>supports_vision_tool_messages=False</code>. Verificato: per <b>tutti</b> i modelli Go
+  la modalità immagine risolta è <code>text</code> — nessuna immagine nativa in contesto. Screenshot e
+  computer-use passano dal modello vision ausiliario e tornano come descrizione testuale.</p></div>
+  <div class="card w"><h4>Vision ausiliaria</h4>
+  <p class="meta">Se il modello principale non vede immagini, la risoluzione cade sulla catena
+  aggregatori. Configurare <code>auxiliary.vision.model</code> (es. <code>deepseek-v4-flash-vision-exp</code>)
+  per tenerla dentro la sottoscrizione.</p></div>
+</div>
+
+<h2><span class="n">06</span>Privacy, riepilogo per modello</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Gruppo</th><th>Training sui dati</th><th>Retention</th><th>Verdetto d'uso</th></tr></thead>
+<tbody>
+<tr><td>Maggioranza del listino (GLM, Kimi, MiniMax, MiMo, LongCat, Qwen, Hy, Omen Alpha)</td><td>No</td><td>0 giorni</td><td>Uso personale ok</td></tr>
+<tr><td>Grok 4.6, GPT 5.6 Luna</td><td>No</td><td>30 giorni</td><td>Uso personale ok, evita contenuti sensibili</td></tr>
+<tr><td>Muse Spark 1.2 / 1.3</td><td><b>Sì</b></td><td>Non ZDR</td><td>Da escludere</td></tr>
+<tr><td>DeepSeek V4 (Pro, Flash, Flash Vision)</td><td>No</td><td><b>0 giorni*</b></td><td><span class="tag no">*accordo ZDR rinnovato mensilmente — valido fino al 30 set 2026</span></td></tr>
+</tbody>
+</table>
+</div>
+<h2><span class="n">07</span>Log dei cambiamenti</h2>
+<p class="lede">Tracciato automaticamente dal job cron <code>OpenCode Go tracker</code> (giornaliero, 09:15 CEST):
+ogni mattina confronta la doc ufficiale con lo snapshot precedente e registra qui ogni variazione di prezzi,
+allowance, lineup o condizioni di privacy. Fonte primaria: <code>opencode.ai/docs/go</code>.</p>
+<div class="scroll">
+<table>
+<thead><tr><th style="width:110px">Data</th><th>Cambiamenti rilevati</th></tr></thead>
+<tbody>
+<!-- OCGO-LOG:START -->
+<tr><td class="num">2026-09-13</td><td><b>DeepSeek V4.1 Flash</b>: promo usage $15 → $60 (4×) valida fino al 20 settembre · <i>il tracker esterno aveva visto giusto: la promo è arrivata in doc dopo il nostro controllo del 12/9</i></td></tr>
+
+<tr><td class="num">2026-09-10</td><td><b>Baseline</b> — snapshot iniziale: 26 modelli documentati, allowance $15/$30/$60/$100, Omen Alpha attivo con $100, limiti dichiarati come $12/5h · $30/sett · $60/mese</td></tr>
+<tr><td class="num">2026-09-12</td><td><b>GLM-5.3-Flash</b>: usage $15 → $60 (1,5× → 6×), stima 7.900 → 31.580 req/mese · <b>DeepSeek V4 Flash</b>: off-peak $0,22/$0,66 → $0,15/$0,60, stima 37.800 → 65.000 req/mese · <b>DeepSeek V4.1 Flash</b>: nuovo in doc ($15, con visione) · <b>Omen Alpha</b>: rimosso dalla doc (ancora attivo sul relay) · <b>Limiti</b>: ridefiniti come 20%/50%/100% del limite mensile del modello</td></tr>
+<!-- OCGO-LOG:END -->
+</tbody>
+</table>
+</div>
+
+<footer>
+Report generato il 10 settembre 2026 · pagina pubblica aggiornata automaticamente dal tracker · dati al 13 settembre 2026<br>
+Fonti: opencode.ai/docs/go (limiti, prezzi, peak, privacy) · catalogo modelli /zen/go/v1/models · models.dev
+· morphllm.com/swe-bench-pro (aggregato llm-stats, 10 ago 2026) · aicodingdaily.com/leaderboard (3 set 2026)
+· kimi.com/blog/kimi-k3 · z.ai/blog/glm-5.3 via habr.com/ru/news/1070374 · buildfastwithai.com (Omen Alpha)
+· verifica diretta su /usr/local/lib/hermes-agent (v0.21.1, commit ead7e91d)<br>
+I benchmark di terze parti e i prezzi per token sono autoreportati dai vendor o misurati su harness diversi:
+non confrontabili al punto percentuale.
+</footer>
+
+</div>
+</body>
+</html>
