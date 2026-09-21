@@ -88,60 +88,9 @@
 <header>
   <p class="kicker">Report · OpenCode Go · 21 settembre 2026</p>
   <h1>Quale modello usare su <em>OpenCode Go</em></h1>
-  <p class="sub">Analisi di convenienza, qualità e compatibilità con Hermes dei 26 modelli inclusi nella sottoscrizione
+  <p class="sub">Analisi di convenienza, qualità e compatibilità con Hermes dei modelli inclusi nella sottoscrizione
   da $10/mese. Ogni numero è ricondotto alla fonte; le stime di capacità sono derivate dalla tabella ufficiale dei limiti.</p>
 </header>
-
-<section id="update-0912">
-  <p class="kicker">Aggiornamento · 12 settembre 2026</p>
-  <h1 style="font-size:28px">Cosa è cambiato in due giorni</h1>
-  <p class="sub">Dati ricontrollati il 12 settembre contro tre fonti indipendenti: doc ufficiale live,
-  tracker <a href="https://ocgo-pricing.all-the.rest">ocgo-pricing.all-the.rest</a> (i cui dati sono embedded
-  nel bundle JS della SPA) ed endpoint <code>/zen/go/v1/models</code>. Il tracker è utile come radar ma
-  <b>non sempre coincide con la doc ufficiale</b>: dove divergono, sotto vale la doc.</p>
-
-  <div class="scroll">
-  <table>
-  <thead><tr><th>Modello</th><th>Prima (10 set)</th><th>Ora (12 set)</th><th>Impatto</th></tr></thead>
-  <tbody>
-  <tr><td class="name">GLM-5.3-Flash</td><td>usage $15 · 1,5× · 7.900 req/mese</td>
-      <td><b>usage $60 · 6× · 31.580 req/mese</b></td>
-      <td>⬆ Promosso nel gruppo 6×: il miglior modello "economico ma capace" del listino, con input multimodale (testo, immagini, video, PDF)</td></tr>
-  <tr><td class="name">DeepSeek V4 Flash</td><td>off-peak $0,22/$0,66 · 37.800 req/mese</td>
-      <td><b>off-peak $0,15/$0,60 · 65.000 req/mese</b></td>
-      <td>⬆ Sconto input −32%, output −9%; allowance effettiva +72% a parità di usage $30. L'alias <code>offpeak</code> migliora da solo</td></tr>
-  <tr><td class="name">DeepSeek V4.1 Flash</td><td>—</td>
-      <td>nuovo: off-peak $0,15/$0,60 · usage $15 · input immagini</td>
-      <td>~ Nuova generazione con visione, ma a parità di listino rende la metà di V4 Flash ($15 vs $30): per la sottoscrizione resta preferibile V4 Flash. Nota: il tracker riporta usage $60, la doc dice $15 — vale la doc</td></tr>
-  <tr><td class="name">Omen Alpha</td><td>usage $100 · 10× · in doc</td>
-      <td><b>rimosso dalla doc ufficiale</b>, ancora attivo sul relay</td>
-      <td>⚠ In rotazione di uscita: non usarlo per nulla di critico; può sparire senza preavviso</td></tr>
-  <tr><td class="name">Limiti</td><td>$12/5h · $30/sett · $60/mese "base"</td>
-      <td>ridefiniti: 5h = 20%, sett = 50%, mese = 100% del limite mensile <em>del modello</em></td>
-      <td>— Chiarifica formale, i numeri nel report erano già corretti (per un modello $60: $12/$30/$60)</td></tr>
-  <tr><td class="name">Modelli free</td><td>—</td>
-      <td>la doc aggiunge: "esaurito il limite, continua con i modelli free"</td>
-      <td>— Sono modelli Zen (<code>mimo-v2.5-free</code> ecc.), testati: non disponibili sul relay Go. Da ignorare</td></tr>
-  </tbody>
-  </table>
-  </div>
-
-  <div class="note">
-  <b>Verdetto sui quattro ruoli: nessun cambiamento necessario.</b>
-  <ul style="margin-top:8px">
-    <li><b>daily → glm-5.2</b> invariato ($60, 6×, stesso listino): resta il default giusto.</li>
-    <li><b>hard → kimi-k3</b> invariato ($15, 1,5×).</li>
-    <li><b>vol → mimo-v2.5</b> invariato: con 150.400 req/mese resta il re del volume; GLM-5.3-Flash ora è 6× ma costa di più a token e ha un quinto delle richieste.</li>
-    <li><b>offpeak → deepseek-v4-flash</b> invariato e <b>migliorato</b>: sconto prezzi e +72% di richieste stimate. V4.1 Flash è più nuovo e vede le immagini, ma a $15 di usage rende la metà di V4 Flash a $30.</li>
-  </ul>
-  Nuova opzione da tenere a mente: <b>GLM-5.3-Flash</b> come "qualità economica" — se un giorno la qualità di MiMo su un job cron delude (es. digest), è il candidato naturale per sostituirlo, a parità di allowance $60.
-  </div>
-
-  <div class="note" style="border-left-color:var(--warn)">
-  <b>Avviso ZDR DeepSeek in scadenza.</b> L'accordo di zero-retention è confermato valido <b>fino al 30 settembre 2026</b>
-  (rinnovato mensilmente). Nessun cambio di condizioni oggi, ma mancano 18 giorni: da ricontrollare il 1° ottobre.
-  </div>
-</section>
 
 <h2><span class="n">01</span>La leva vera: il moltiplicatore, non il prezzo per token</h2>
 <p class="lede">I limiti di Go sono espressi in <b>valore in dollari</b>, non in richieste: $12 ogni 5 ore,
@@ -166,9 +115,9 @@ sono più o meno gli stessi qualunque modello tu scelga.</p>
   <th class="num">In / Out $/M</th><th class="num">Ctx</th><th>Visione</th><th>Nota</th>
 </tr></thead>
 <tbody>
-<tr><td class="name">Omen Alpha</td><td><div class="bar"><i style="width:100%"></i></div>10×</td><td class="num">57.900</td><td class="num">$100</td><td class="num">0,20 / 0,66</td><td class="num">500K</td><td><span class="tag v">sì</span></td><td>Stealth, ~189 tok/s</td></tr>
 <tr><td class="name">GLM-5.2</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">4.300</td><td class="num">$60</td><td class="num">1,40 / 4,40</td><td class="num">1M</td><td><span class="tag">no</span></td><td>62,1% SWE-bench Pro — top open</td></tr>
 <tr><td class="name">GLM-5.1</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">4.300</td><td class="num">$60</td><td class="num">1,40 / 4,40</td><td class="num">203K</td><td><span class="tag">no</span></td><td>58,4%</td></tr>
+<tr><td class="name">GLM-5.3-Flash</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">31.580</td><td class="num">$60</td><td class="num">0,15 / 0,50</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Economico multimodale (testo/img/video/PDF)</td></tr>
 <tr><td class="name">Kimi K2.7 Code</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">6.750</td><td class="num">$60</td><td class="num">0,95 / 4,00</td><td class="num">262K</td><td><span class="tag v">sì</span></td><td>Specializzato code</td></tr>
 <tr><td class="name">LongCat-2.0</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">57.200</td><td class="num">$60</td><td class="num">0,30 / 1,20</td><td class="num">1M</td><td><span class="tag">no</span></td><td>Sessione lunga</td></tr>
 <tr><td class="name">MiMo-V2.5</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">150.400</td><td class="num">$60</td><td class="num">0,14 / 0,28</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Re del volume</td></tr>
@@ -177,13 +126,14 @@ sono più o meno gli stessi qualunque modello tu scelga.</p>
 <tr><td class="name">Qwen3.6 Plus</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">16.300</td><td class="num">$60</td><td class="num">0,50 / 3,00</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>—</td></tr>
 <tr><td class="name">Hy3</td><td><div class="bar"><i style="width:60%"></i></div>6×</td><td class="num">21.500</td><td class="num">$60</td><td class="num">0,14 / 0,58</td><td class="num">256K</td><td><span class="tag">no</span></td><td>Buono su Go (4,5/5 su Bank Feed)</td></tr>
 <tr><td class="name">GPT 5.6 Luna</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">10.250</td><td class="num">$15</td><td class="num">0,20 / 1,20</td><td class="num">1,05M</td><td><span class="tag v">sì</span></td><td>62,7% — miglior qualità/prezzo closed</td></tr>
-<tr><td class="name">DeepSeek V4 Flash</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">37.800</td><td class="num">$30</td><td class="num">0,44 / 1,32<br><span style="color:var(--dim)">off-peak 0,22/0,66</span></td><td class="num">1M</td><td><span class="tag">no</span></td><td>52,6%; <b>263 pt/$</b></td></tr>
+<tr><td class="name">DeepSeek V4 Flash</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">65.000</td><td class="num">$30</td><td class="num">0,30 / 1,20<br><span style="color:var(--dim)">off-peak 0,15/0,60</span></td><td class="num">1M</td><td><span class="tag">no</span></td><td>52,6%; <b>263 pt/$</b></td></tr>
+<tr><td class="name">DeepSeek V4.1 Flash</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">32.500</td><td class="num">$15 <span style="color:var(--dim)">(promo $60 4× fino al 27 set)</span></td><td class="num">0,30 / 1,20<br><span style="color:var(--dim)">off-peak 0,15/0,60</span></td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Nuova gen con visione; con la promo a $60 rende il doppio di V4 Flash</td></tr>
 <tr><td class="name">Qwen3.8 Flash</td><td><div class="bar s"><i style="width:30%"></i></div>3×</td><td class="num">27.000</td><td class="num">$30</td><td class="num">0,15 / 0,47</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>Volume con visione</td></tr>
 <tr><td class="name">GLM-5.3</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">1.080</td><td class="num">$15</td><td class="num">1,40 / 4,40</td><td class="num">1M</td><td><span class="tag">no</span></td><td>Miglior agente, ma 1/4 dell'allowance di 5.2</td></tr>
 <tr><td class="name">Kimi K3</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">490</td><td class="num">$15</td><td class="num">3,00 / 15,00</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>2,8T, frontier — caro</td></tr>
 <tr><td class="name">Qwen3.8 Max</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">810</td><td class="num">$15</td><td class="num">2,00 / 6,00</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>67,7% (vendor)</td></tr>
 <tr><td class="name">Grok 4.6</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">845</td><td class="num">$15</td><td class="num">2,00 / 6,00</td><td class="num">500K</td><td><span class="tag v">sì</span></td><td>30 giorni di retention</td></tr>
-<tr><td class="name">DeepSeek V4 Pro</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">5.200</td><td class="num">$15</td><td class="num">1,32 / 3,96<br><span style="color:var(--dim)">off-peak 0,66/1,98</span></td><td class="num">1M</td><td><span class="tag">no</span></td><td>55,4%; attuale <code>default_model</code></td></tr>
+<tr><td class="name">DeepSeek V4 Pro</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">5.200</td><td class="num">$15</td><td class="num">1,32 / 3,96<br><span style="color:var(--dim)">off-peak 0,66/1,98</span></td><td class="num">1M</td><td><span class="tag">no</span></td><td>55,4%; ex-default (sostituito da glm-5.2 il 10 set)</td></tr>
 <tr><td class="name">MiMo-V2.5-Pro</td><td><div class="bar w"><i style="width:15%"></i></div>1,5×</td><td class="num">16.300</td><td class="num">$15</td><td class="num">0,44 / 0,87</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td>57,2%</td></tr>
 <tr><td class="name">Muse Spark 1.3</td><td><div class="bar w"><i style="width:60%"></i></div>6×</td><td class="num">226.600</td><td class="num">$60</td><td class="num">0,10 / 0,20</td><td class="num">1M</td><td><span class="tag v">sì</span></td><td><span class="tag no">allena sui tuoi prompt</span></td></tr>
 </tbody>
@@ -267,7 +217,7 @@ progetti veri (import CSV, sync offline, bank feed Flutter, preventivi spedizion
 <tr><td class="num">11</td><td class="name">Qwen3.8 Max</td><td class="num">25,14</td><td class="num">10:21</td><td>1,5× ⚠</td></tr>
 <tr><td class="num">12</td><td class="name">GPT 5.6 Luna</td><td class="num">24,86</td><td class="num">6:18</td><td>3×</td></tr>
 <tr><td class="num">14</td><td class="name">DeepSeek V4 Flash</td><td class="num">23,18</td><td class="num">5:04</td><td>3×</td></tr>
-<tr><td class="num">15</td><td class="name">Omen Alpha</td><td class="num">23,14</td><td class="num">1:51</td><td>10× ✔</td></tr>
+<tr><td class="num">15</td><td class="name">Omen Alpha <span class="tag no">delistato</span></td><td class="num">23,14</td><td class="num">1:51</td><td>— </td></tr>
 <tr><td class="num">16</td><td class="name">Qwen3.8 Flash</td><td class="num">22,94</td><td class="num">8:38</td><td>3×</td></tr>
 <tr><td class="num">17</td><td class="name">Kimi K2.7 Code</td><td class="num">22,78</td><td class="num">8:21</td><td>6× ✔</td></tr>
 <tr><td class="num">18</td><td class="name">Hy3</td><td class="num">22,11</td><td class="num">6:35</td><td>6× ✔</td></tr>
@@ -277,7 +227,8 @@ progetti veri (import CSV, sync offline, bank feed Flutter, preventivi spedizion
 </table>
 </div>
 <p class="lede">Nota bene due cose: <b>GLM-5.2 e GLM-5.1 non sono nella lista</b> (non ancora testati dall'autore),
-e <b>Omen Alpha è di gran lunga il più veloce</b> (1:51 contro 5–13 minuti), pur con punteggio medio. Su sessioni
+e <b>Omen Alpha era di gran lunga il più veloce</b> (1:51 contro 5–13 minuti), pur con punteggio medio —
+ma è stato rimosso dalla doc ufficiale il 12 settembre (delistato; la riga resta come dato storico). Su sessioni
 agentiche con molti turni la velocità vale più di due punti di benchmark.</p>
 
 <h3>GLM-5.3: stesso modello base di 5.2, solo post-training</h3>
@@ -317,9 +268,9 @@ Se fosse vero, GLM-5.2 sarebbe contemporaneamente il modello più capace della f
   <div class="card s">
     <h4>Volume e velocità</h4>
     <p class="why">Sessioni lunghe, molti turni, tool-call ripetuti, task meccanici. Costo per token
-    quasi nullo e l'allowance più generosa della sottoscrizione dopo Omen Alpha.</p>
-    <p class="meta">modello: <b>mimo-v2.5</b> (150k req/mese)<br>alternativa: omen-alpha ($100, ~189 tok/s)<br>
-    altra: longcat-2.0</p>
+    quasi nullo e l'allowance più generosa della sottoscrizione.</p>
+    <p class="meta">modello: <b>mimo-v2.5</b> (150k req/mese)<br>alternativa: longcat-2.0<br>
+    economica multimodale: glm-5.3-flash (31,5k req/mese, ora 6×)</p>
   </div>
   <div class="card">
     <h4>Task difficili, una tantum</h4>
@@ -332,15 +283,16 @@ Se fosse vero, GLM-5.2 sarebbe contemporaneamente il modello più capace della f
     <h4>Finestra off-peak</h4>
     <p class="why">Se ti trovi a lavorare nel pomeriggio o nel weekend, DeepSeek rende il doppio.
     Il V4 Flash resta il miglior rapporto punti-per-dollaro di tutta la lineup (263 pt/$).</p>
-    <p class="meta">modello: <b>deepseek-v4-flash</b><br>solo fuori da 01–04 e 06–10 UTC lun–ven<br>
-    allowance effettiva: ~75.600 req/mese</p>
+    <p class="meta">modello: <b>deepseek-v4-flash</b> (65.000 req/mese)<br>
+    fino al 27 settembre: <b>deepseek-v4.1-flash</b> in promo $60 4× (visione inclusa) — rende il doppio di V4 Flash<br>
+    solo fuori da 01–04 e 06–10 UTC lun–ven</p>
   </div>
 </div>
 
 <h3>Da non usare come default</h3>
 <ul>
   <li><b>DeepSeek V4 Pro</b> — 1,5× di allowance ($15), 55,4% su SWE-bench Pro, 27° sulla leaderboard pratica:
-  paga il prezzo di un modello premium per prestazioni medie. È stata a lungo il default di questa configurazione.</li>
+  paga il prezzo di un modello premium per prestazioni medie. È stato a lungo il default di questa configurazione, sostituito il 10 settembre.</li>
   <li><b>GLM-5.3</b> — stesso listino di GLM-5.2 ma un quarto dell'allowance. Ottimo modello, pessimo contratto.</li>
   <li><b>Muse Spark 1.2 / 1.3</b> — allowance enorme e prezzo ridicolo, ma il patto è esplicito: Meta usa
   prompt e completamenti per addestrare modelli futuri. Fuori discussione per qualsiasi cosa di lavoro.</li>
@@ -374,7 +326,7 @@ Se fosse vero, GLM-5.2 sarebbe contemporaneamente il modello più capace della f
 <table>
 <thead><tr><th>Gruppo</th><th>Training sui dati</th><th>Retention</th><th>Verdetto d'uso</th></tr></thead>
 <tbody>
-<tr><td>Maggioranza del listino (GLM, Kimi, MiniMax, MiMo, LongCat, Qwen, Hy, Omen Alpha)</td><td>No</td><td>0 giorni</td><td>Uso personale ok</td></tr>
+<tr><td>Maggioranza del listino (GLM, Kimi, MiniMax, MiMo, LongCat, Qwen, Hy)</td><td>No</td><td>0 giorni</td><td>Uso personale ok</td></tr>
 <tr><td>Grok 4.6, GPT 5.6 Luna</td><td>No</td><td>30 giorni</td><td>Uso personale ok, evita contenuti sensibili</td></tr>
 <tr><td>Muse Spark 1.2 / 1.3</td><td><b>Sì</b></td><td>Non ZDR</td><td>Da escludere</td></tr>
 <tr><td>DeepSeek V4 (Pro, Flash, Flash Vision)</td><td>No</td><td><b>0 giorni*</b></td><td><span class="tag no">*accordo ZDR rinnovato mensilmente — valido fino al 30 set 2026</span></td></tr>
