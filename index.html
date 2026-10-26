@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenCode Go — Guida alla scelta del modello · 25 ottobre 2026</title>
+<title>OpenCode Go — Guida alla scelta del modello · 26 ottobre 2026</title>
 <style>
   :root{
     --bg:#0f0e0c; --card:#181614; --card2:#1f1c19; --line:#2e2a25;
@@ -178,7 +178,7 @@ modello in uso partecipa sempre al confronto: se vince lui, il verdetto è «con
 <p class="lede">Stato dichiarato dalla doc ufficiale per i client che inviano l'header di sessione (aggiornato
 a ogni run), più le verifiche fatte su questa installazione.</p>
 <div class="scroll"><table><thead><tr><th>Client</th><th>Stato dichiarato dalla doc</th></tr></thead><tbody><tr><td class="name">Hermes</td><td>Update to v0.21.6 or later , which sends the header on main and auxiliary OpenCode requests ( PR #101864 ).</td></tr><tr><td class="name">Claude Code</td><td>Go recognizes its native session header. No custom-header wrapper is needed.</td></tr><tr><td class="name">Codex</td><td>Go recognizes its native session header. Some versions and proxy setups still omit it; preserve the session header when forwarding requests.</td></tr><tr><td class="name">ZCode</td><td>Go recognizes its native session header. Our request for x-opencode-session remains open, but it is no longer necessary to send that specific header.</td></tr><tr><td class="name">Pi</td><td>Current builds send session information for OpenCode. Update older installations.</td></tr><tr><td class="name">jcode</td><td>Update to v0.81.6 or later , which includes the session-header fix .</td></tr><tr><td class="name">Kilo Code CLI</td><td>Builds containing PR #13752 restore OpenCode session headers. This fix covers the CLI, not the VS Code extension. See issue #13723 .</td></tr></tbody></table></div>
-<div class="note"><b>Verifiche su questa installazione.</b><ul><li>Questo script gira su <code>3.14.7</code> e invia l'header di sessione tramite il runtime di Hermes installato su questa macchina.</li><li>Catalogo realmente servito dal relay: <b>38</b> id, di cui <b>9</b> non più documentati.</li><li>La vision ausiliaria è fissata a <code>mimo-v2.5</code>: gli screenshot restano dentro la sottoscrizione invece di cadere sulla catena di aggregatori.</li></ul></div>
+<div class="note"><b>Verifiche su questa installazione.</b><ul><li>Questo script gira su <code>3.14.9</code> e invia l'header di sessione tramite il runtime di Hermes installato su questa macchina.</li><li>Catalogo realmente servito dal relay: <b>38</b> id, di cui <b>9</b> non più documentati.</li><li>La vision ausiliaria è fissata a <code>mimo-v2.5</code>: gli screenshot restano dentro la sottoscrizione invece di cadere sulla catena di aggregatori.</li></ul></div>
 
 <h2><span class="n">06</span>Privacy, riepilogo per modello</h2>
 <p class="lede">Dati letti dalla tabella privacy della doc ufficiale a ogni run.</p>
@@ -223,9 +223,9 @@ Fonte primaria: <code>opencode.ai/docs/go</code>.</p>
 </div>
 
 <footer>
-Report rigenerato il <b>25 ottobre 2026</b> da uno script Python: nessun testo è scritto a mano.<br>
+Report aggiornato il <b>25 ottobre 2026</b> da uno script Python: nessun testo è scritto a mano.<br>
 · opencode.ai/docs/go — piani, prezzi, limiti mensili, stime richieste, peak hours, privacy, ZDR e model ID (fonte primaria, letta a ogni run)<br>· models.dev (provider opencode-go) — contesto, modalità, open weights, data di rilascio<br>· opencode.ai/zen/go/v1/models — catalogo realmente servito dal relay<br>· llm-stats / morphllm SWE-bench Pro — aggregato vendor e terzi, agosto 2026<br>· aicodingdaily — comparativa su harness OpenCode con 4 progetti reali, 3 settembre 2026<br><br>
-python 3.14.7 · modelli documentati 29<br>
+python 3.14.9 · modelli documentati 29<br>
 I benchmark di terze parti sono rilevati su harness diversi: non confrontabili al punto percentuale. Le stime di richieste al mese sono quelle pubblicate dalla doc ufficiale.
 </footer>
 
