@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenCode Go — Guida alla scelta del modello · 31 ottobre 2026</title>
+<title>OpenCode Go — Guida alla scelta del modello · 1 novembre 2026</title>
 <style>
   :root{
     --bg:#0f0e0c; --card:#181614; --card2:#1f1c19; --line:#2e2a25;
@@ -97,7 +97,7 @@
 <div class="wrap">
 
 <header>
-  <p class="kicker">Report · OpenCode Go · 31 ottobre 2026</p>
+  <p class="kicker">Report · OpenCode Go · 1 novembre 2026</p>
   <h1>Quale modello usare su <em>OpenCode Go</em></h1>
   <p class="sub">Analisi di convenienza, qualità e compatibilità con Hermes dei 28 modelli documentati
   per il piano <b>Go $10/month</b> (e per il piano <b>Go Plus $40/month</b>, che porta l'allowance di ogni modello a 2–8×). La tabella dei modelli e la raccomandazione sono
@@ -107,9 +107,9 @@
 
 
 
-<h2><span class="n">00</span>Cosa è cambiato · 31 ottobre 2026</h2>
+<h2><span class="n">00</span>Cosa è cambiato · 1 novembre 2026</h2>
 <p class="lede">Ultima variazione <b>materiale</b> rilevata nella doc ufficiale. Le differenze di sola forma (per esempio la stessa voce scritta con <code>&amp;gt;</code> invece di <code>&gt;</code>) non entrano più nel log: il confronto è sui dati normalizzati.</p>
-<ul><li>💰 DeepSeek V4.1 Flash (Go): allowance 80$ → 100$</li><li>📊 DeepSeek V4.1 Flash: 173.330 → 216.670 richieste/mese</li><li>💰 DeepSeek V4.1 Flash (goteams): allowance 85$ → 105$</li><li>📊 DeepSeek V4.1 Flash: 184.160 → 227.500 richieste/mese</li><li>💰 DeepSeek V4.1 Flash (plus): allowance 160$ → 200$</li><li>📊 DeepSeek V4.1 Flash: 346.670 → 433.330 richieste/mese</li></ul>
+<ul><li>🔒 ZDR DeepSeek: valido fino al October 31, 2026 → November 30, 2026</li></ul>
 
 <h2><span class="n">01</span>La leva vera: il moltiplicatore, non il prezzo per token</h2>
 <p class="lede">I limiti di Go sono espressi in <b>valore in dollari</b>, non in richieste. Per ogni modello la doc
@@ -183,7 +183,7 @@ a ogni run), più le verifiche fatte su questa installazione.</p>
 <h2><span class="n">06</span>Privacy, riepilogo per modello</h2>
 <p class="lede">Dati letti dalla tabella privacy della doc ufficiale a ogni run.</p>
 <div class="scroll"><table><thead><tr><th>Modelli</th><th>Training sui dati</th><th>Retention</th><th>Verdetto d'uso</th></tr></thead><tbody><tr><td>GLM-5.2, GLM-5.3, GLM-5.3-Flash, Gemini 4 Argon, Hy3, Hy4 preview, Kimi K2.7 Code, Kimi K3, Kimi K3.1 Pro, LongCat-2.0, MiMo-V2.5, MiMo-V2.5-Pro, MiMo-V2.6-Flash, MiMo-V2.6-Pro, MiniMax M3, MiniMax M3.1 Flash, Qwen3.7 Plus, Qwen3.8 Flash, Qwen3.8 Max, Step 5 Preview</td><td>Not used</td><td><span class="tag">0 days</span></td><td>uso personale ok</td></tr><tr><td>DeepSeek V4 Pro, DeepSeek V4.1 Flash</td><td>Not used</td><td><span class="tag no">0 days*</span></td><td>uso personale ok</td></tr><tr><td>Beam Free, Claude Haiku 5.5, GPT 5.6 Luna, GPT 6 Luna, Grok 4.7</td><td>Not used</td><td><span class="tag">30 days</span></td><td>uso personale ok, evita contenuti sensibili</td></tr><tr><td>Iceman Contributor Free, Muse Spark 1.2 Contributor, Muse Spark 1.3 Contributor</td><td>Yes — <b>addestra sui tuoi dati</b></td><td><span class="tag no">Not ZDR</span></td><td>da escludere</td></tr></tbody></table></div>
-<div class="note"><b>Accordo ZDR DeepSeek.</b> La doc dichiara la validità fino al <b>31 ottobre 2026</b>; l'accordo è rinnovato mensilmente, quindi la data va ricontrollata a ogni rinnovo. Il tracker la confronta a ogni run e la segnala nel log quando cambia.</div>
+<div class="note"><b>Accordo ZDR DeepSeek.</b> La doc dichiara la validità fino al <b>30 novembre 2026</b>; l'accordo è rinnovato mensilmente, quindi la data va ricontrollata a ogni rinnovo. Il tracker la confronta a ogni run e la segnala nel log quando cambia.</div>
 
 
 
@@ -195,6 +195,7 @@ Fonte primaria: <code>opencode.ai/docs/go</code>.</p>
 <table>
 <thead><tr><th style="width:110px">Data</th><th>Cambiamenti rilevati</th></tr></thead>
 <tbody>
+<tr><td class="num">2026-11-01</td><td>🔒 ZDR DeepSeek: valido fino al October 31, 2026 → November 30, 2026</td></tr>
 <tr><td class="num">2026-10-31</td><td>💰 DeepSeek V4.1 Flash (Go): allowance 80$ → 100$ · 📊 DeepSeek V4.1 Flash: 173.330 → 216.670 richieste/mese · 💰 DeepSeek V4.1 Flash (goteams): allowance 85$ → 105$ · 📊 DeepSeek V4.1 Flash: 184.160 → 227.500 richieste/mese · 💰 DeepSeek V4.1 Flash (plus): allowance 160$ → 200$ · 📊 DeepSeek V4.1 Flash: 346.670 → 433.330 richieste/mese</td></tr>
 <tr><td class="num">2026-10-30</td><td>💳 Piano Go Teams: $20/member/month → $20/member/month — Every member gets their own limits, $5/month higher than Go on every model · 🔌 Relay: − mimo-v2.5, mimo-v2.5-pro</td></tr>
 <tr><td class="num">2026-10-29</td><td>💰 Claude Haiku 5.5 (goteams): allowance —$ → 20$ · 📊 Claude Haiku 5.5: — → 25.640 richieste/mese · 💰 DeepSeek V4 Pro (goteams): allowance —$ → 20$ · 📊 DeepSeek V4 Pro: — → 6.930 richieste/mese · 💰 DeepSeek V4.1 Flash (goteams): allowance —$ → 85$ · 📊 DeepSeek V4.1 Flash: — → 184.160 richieste/mese · 💰 GLM-5.2 (goteams): allowance —$ → 65$ · 📊 GLM-5.2: — → 4.660 richieste/mese · 💰 GLM-5.3 (goteams): allowance —$ → 20$ · 📊 GLM-5.3: — → 1.440 richieste/mese · 💰 GLM-5.3-Flash (goteams): allowance —$ → 65$ · 📊 GLM-5.3-Flash: — → 34.210 richieste/mese · 💰 GPT 5.6 Luna (goteams): allowance —$ → 20$ · 📊 GPT 5.6 Luna: — → 13.670 richieste/mese · 💰 GPT 6 Luna (goteams): allowance —$ → 20$ · 📊 GPT 6 Luna: — → 28.170 richieste/mese · 💰 Gemini 4 Argon (goteams): allowance —$ → 35$ · 📊 Gemini 4 Argon: — → 2.470 richieste/mese · 💰 Grok 4.7 (goteams): allowance —$ → 20$ · 📊 Grok 4.7: — → 1.130 richieste/mese · 💰 Hy3 (goteams): allowance —$ → 65$ · 📊 Hy3: — → 23.290 richieste/mese · 💰 Hy4 preview (goteams): allowance —$ → 35$ · 📊 Hy4 preview: — → 7.900 richieste/mese · 💰 Kimi K2.7 Code (goteams): allowance —$ → 65$ · 📊 Kimi K2.7 Code: — → 7.310 richieste/mese · 💰 Kimi K3 (goteams): allowance —$ → 20$ · 📊 Kimi K3: — → 653 richieste/mese · 💰 Kimi K3.1 Pro (goteams): allowance —$ → 20$ · 📊 Kimi K3.1 Pro: — → 980 richieste/mese · 💰 LongCat-2.0 (goteams): allowance —$ → 65$ · 📊 LongCat-2.0: — → 61.970 richieste/mese · 💰 MiMo-V2.5 (goteams): allowance —$ → 65$ · 📊 MiMo-V2.5: — → 162.930 richieste/mese · 💰 MiMo-V2.5-Pro (goteams): allowance —$ → 20$ · 📊 MiMo-V2.5-Pro: — → 21.730 richieste/mese · 💰 MiMo-V2.6-Flash (goteams): allowance —$ → 65$ · 📊 MiMo-V2.6-Flash: — → 162.930 richieste/mese · 💰 MiMo-V2.6-Pro (goteams): allowance —$ → 20$ · 📊 MiMo-V2.6-Pro: — → 21.730 richieste/mese · 💰 MiniMax M3 (goteams): allowance —$ → 65$ · 📊 MiniMax M3: — → 17.330 richieste/mese · 💰 MiniMax M3: scaglione rimosso · 💰 MiniMax M3 (&gt; 512K tokens): nuovo scaglione — in 0,6, out 2,4 · 💰 MiniMax M3 (≤ 512K tokens): nuovo scaglione — in 0,3, out 1,2 · 💰 MiniMax M3.1 Flash (goteams): allowance —$ → 25$ · 📊 MiniMax M3.1 Flash: — → 24.230 richieste/mese · 💰 Muse Spark 1.2 Contributor (goteams): allowance —$ → 65$ · 📊 Muse Spark 1.2 Contributor: — → 245.480 richieste/mese · 💰 Muse Spark 1.3 Contributor (goteams): allowance —$ → 65$ · 📊 Muse Spark 1.3 Contributor: — → 245.480 richieste/mese · 💰 Qwen3.7 Plus (goteams): allowance —$ → 65$ · 📊 Qwen3.7 Plus: — → 23.400 richieste/mese · 💰 Qwen3.8 Flash (goteams): allowance —$ → 35$ · 📊 Qwen3.8 Flash: — → 31.500 richieste/mese · 💰 Qwen3.8 Max (goteams): allowance —$ → 20$ · 📊 Qwen3.8 Max: — → 1.080 richieste/mese · 💰 Step 5 Preview (goteams): allowance —$ → 20$ · 📊 Step 5 Preview: — → 2.840 richieste/mese · 💳 Piano Go Teams ($20/member/month): nuovo — Every member gets their own Go limits, plus $5/month on every model · 🔌 Relay: − glm-5.1, grok-4.6, kimi-k2.6, minimax-m2.5, minimax-m2.7, omen-alpha, qwen3.6-plus, qwen3.7-max</td></tr>
@@ -227,7 +228,7 @@ Fonte primaria: <code>opencode.ai/docs/go</code>.</p>
 </div>
 
 <footer>
-Report rigenerato il <b>31 ottobre 2026</b> da uno script Python: nessun testo è scritto a mano.<br>
+Report rigenerato il <b>1 novembre 2026</b> da uno script Python: nessun testo è scritto a mano.<br>
 · opencode.ai/docs/go — piani, prezzi, limiti mensili, stime richieste, peak hours, privacy, ZDR e model ID (fonte primaria, letta a ogni run)<br>· models.dev (provider opencode-go) — contesto, modalità, open weights, data di rilascio<br>· opencode.ai/zen/go/v1/models — catalogo realmente servito dal relay<br>· llm-stats / morphllm SWE-bench Pro — aggregato vendor e terzi, agosto 2026<br>· aicodingdaily — comparativa su harness OpenCode con 4 progetti reali, 3 settembre 2026<br><br>
 python 3.14.9 · modelli documentati 30<br>
 I benchmark di terze parti sono rilevati su harness diversi: non confrontabili al punto percentuale. Le stime di richieste al mese sono quelle pubblicate dalla doc ufficiale.
