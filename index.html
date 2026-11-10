@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenCode Go — Guida alla scelta del modello · 9 novembre 2026</title>
+<title>OpenCode Go — Guida alla scelta del modello · 10 novembre 2026</title>
 <style>
   :root{
     --bg:#0f0e0c; --card:#181614; --card2:#1f1c19; --line:#2e2a25;
@@ -97,7 +97,7 @@
 <div class="wrap">
 
 <header>
-  <p class="kicker">Report · OpenCode Go · 7 novembre 2026</p>
+  <p class="kicker">Report · OpenCode Go · 10 novembre 2026</p>
   <h1>Quale modello usare su <em>OpenCode Go</em></h1>
   <p class="sub">Analisi di convenienza, qualità e compatibilità con Hermes dei 29 modelli documentati
   per il piano <b>Go $10/month</b> (e per il piano <b>Go Plus $40/month</b>, che porta l'allowance di ogni modello a 2–8×). La tabella dei modelli e la raccomandazione sono
@@ -107,9 +107,9 @@
 
 
 
-<h2><span class="n">00</span>Cosa è cambiato · 7 novembre 2026</h2>
+<h2><span class="n">00</span>Cosa è cambiato · 10 novembre 2026</h2>
 <p class="lede">Ultima variazione <b>materiale</b> rilevata nella doc ufficiale. Le differenze di sola forma (per esempio la stessa voce scritta con <code>&amp;gt;</code> invece di <code>&gt;</code>) non entrano più nel log: il confronto è sui dati normalizzati.</p>
-<ul><li>➕ Crouton Alpha Free: nuovo nel listino — in 0, out 0, allowance illimitata*, — req/mese</li></ul>
+<ul><li>➕ LongCat 2.5 Free: nuovo nel listino — in 0, out 0, allowance illimitata*, — req/mese</li><li>➖ Crouton Alpha Free: rimosso dalla doc</li><li>🔌 Relay: + longcat-2.5-free · − crouton-alpha-free</li></ul>
 
 <h2><span class="n">01</span>La leva vera: il moltiplicatore, non il prezzo per token</h2>
 <p class="lede">I limiti di Go sono espressi in <b>valore in dollari</b>, non in richieste. Per ogni modello la doc
@@ -136,7 +136,7 @@ meno gli stessi qualunque modello tu scelga. Le finestre dei limiti sono quote d
 <h3>Fuori dal listino ma raggiungibili</h3>
 <div class="scroll"><table>
 <thead><tr><th>Modello</th><th>Perché è qui</th><th>Nota</th></tr></thead>
-<tbody><tr><td class="name">Crouton Alpha Free</td><td>free illimitato a tempo (non nel tetto mensile)</td><td class="small">fallback quando l'allowance è esaurita — nessun punteggio di qualità disponibile</td></tr><tr><td class="name">Beam Free</td><td>free illimitato a tempo (non nel tetto mensile)</td><td class="small">fallback quando l'allowance è esaurita — nessun punteggio di qualità disponibile</td></tr><tr><td class="name">Iceman Contributor Free</td><td>free illimitato a tempo (non nel tetto mensile)</td><td class="small">fallback quando l'allowance è esaurita — nessun punteggio di qualità disponibile</td></tr></tbody></table></div>
+<tbody><tr><td class="name">Beam Free</td><td>free illimitato a tempo (non nel tetto mensile)</td><td class="small">fallback quando l'allowance è esaurita — nessun punteggio di qualità disponibile</td></tr><tr><td class="name">Iceman Contributor Free</td><td>free illimitato a tempo (non nel tetto mensile)</td><td class="small">fallback quando l'allowance è esaurita — nessun punteggio di qualità disponibile</td></tr><tr><td class="name">LongCat 2.5 Free</td><td>free illimitato a tempo (non nel tetto mensile)</td><td class="small">fallback quando l'allowance è esaurita — nessun punteggio di qualità disponibile</td></tr></tbody></table></div>
 </div>
 
 <h2><span class="n">02</span>DeepSeek peak / off-peak: la finestra italiana è quella sbagliata</h2>
@@ -172,7 +172,7 @@ modello in uso partecipa sempre al confronto: se vince lui, il verdetto è «con
 <div class="grid g3"><div class="card"><h4>Default quotidiano <span class="tag ok">conferma</span></h4><p class="why">Coding, agent loop, task medi e lunghi. Si massimizza la capacità mensile senza scendere sotto la qualità già in uso. <i>già il massimo della rosa a parità di qualità.</i></p><p class="meta">modello in uso: <b>GLM-5.2</b> (req/mese <b>4.300</b> · allowance <b>$60</b> · qualità <b>62,1%</b>)<br>alternativa più capiente: <b>MiMo-V2.5</b> (req/mese <b>150.400</b> · allowance <b>$60</b> · qualità <b>56,1%</b> — meno 6 pt di qualità)</p></div><div class="card"><h4>Volume e velocità <span class="tag ok">conferma</span></h4><p class="why">Sessioni lunghe, molti turni, task meccanici: conta il numero di richieste incluse, non il punteggio. <i>già il massimo della rosa a parità di qualità.</i></p><p class="meta">modello in uso: <b>MiMo-V2.5</b> (req/mese <b>150.400</b> · allowance <b>$60</b> · qualità <b>56,1%</b>)</p></div><div class="card"><h4>Finestra off-peak <span class="tag no">da valutare</span></h4><p class="why">Solo modelli DeepSeek con doppio listino: fuori da 01–04 e 06–10 UTC lun–ven il loro prezzo dimezza e l'allowance effettiva raddoppia. <i>qualità del modello in uso non misurata: nessun cambio consigliato senza un confronto.</i></p><p class="meta">modello in uso: <b>DeepSeek V4.1 Flash</b> (req/mese <b>216.670</b> · allowance <b>$100</b> · qualità <b>non misurata</b>)<br>miglior misurato sul metro disponibile: <b>DeepSeek V4 Pro</b> (req/mese <b>5.200</b> · allowance <b>$15</b> · qualità <b>55,4%</b>)<br>capacità: <b>216.670</b> contro <b>5.200</b> richieste/mese — il modello in uso resta il più capiente</p></div><div class="card"><h4>Task difficili, una tantum <span class="tag no">da valutare</span></h4><p class="why">Debugging sottile, architettura, refactor su repo grandi. L'obiettivo è la qualità massima, non la capacità. <i>qualità del modello in uso non misurata: nessun cambio consigliato senza un confronto.</i></p><p class="meta">modello in uso: <b>Kimi K3</b> (req/mese <b>490</b> · allowance <b>$15</b> · qualità <b>non misurata</b> · harness: 5° con 30,87 pt)<br>miglior misurato sul metro disponibile: <b>GLM-5.2</b> (req/mese <b>4.300</b> · allowance <b>$60</b> · qualità <b>62,1%</b>)<br>confronto di qualità: il modello in uso non è misurato su SWE-bench Pro, quindi nessun sostituto è dimostrabile come non peggiore (sulla leaderboard pratica è harness: 5° con 30,87 pt)</p></div><div class="card w"><h4>Visione dentro la sottoscrizione <span class="tag bad">cambia</span></h4><p class="why">Modello per la vision ausiliaria: deve vedere immagini e restare dentro la sottoscrizione. <i>modello in uso non più nel listino.</i></p><p class="meta">modello in uso: <b>—</b> (—)<br>proposto: <b>MiMo-V2.5</b> (req/mese <b>150.400</b> · allowance <b>$60</b> · qualità <b>56,1%</b>)</p></div></div>
 
 <h3>Da non usare come default</h3>
-<ul><li><b>Iceman Contributor Free</b>, <b>Muse Spark 1.3 Contributor</b>, <b>Muse Spark 1.2 Contributor</b> — Meta usa prompt e completamenti per addestrare modelli futuri: da escludere per qualunque uso che non sia di gioco. Allowance generosa (illimitata*, — richieste al mese), ma il patto è quello: fuori discussione per lavoro.</li><li><b>GLM-5.3</b> (1,5×, 1.080 richieste/mese, qualità non misurata) · <b>Kimi K3.1 Pro</b> (1,5×, 735 richieste/mese, qualità non misurata) · <b>Kimi K3</b> (1,5×, 490 richieste/mese, qualità non misurata) · <b>Qwen3.8 Max</b> (1,5×, 810 richieste/mese, 67,7%) · <b>Grok 4.7</b> (1,5×, 845 richieste/mese, qualità non misurata) — modelli capaci ma con un contratto da 1,5×: il listino è da modello premium, l'allowance no. Restano ottimi per l'attività singola difficile, non come default di sessione.</li><li><b>Crouton Alpha Free</b>, <b>Beam Free</b>, <b>Grok 4.7</b>, <b>GPT 6 Luna</b>, <b>GPT 5.6 Luna</b>, <b>Claude Haiku 5.5</b> — <b>30 giorni</b> di retention lato provider: usabili per uso personale, da evitare per contenuti sensibili.</li></ul>
+<ul><li><b>Iceman Contributor Free</b>, <b>Muse Spark 1.3 Contributor</b>, <b>Muse Spark 1.2 Contributor</b> — Meta usa prompt e completamenti per addestrare modelli futuri: da escludere per qualunque uso che non sia di gioco. Allowance generosa (illimitata*, — richieste al mese), ma il patto è quello: fuori discussione per lavoro.</li><li><b>GLM-5.3</b> (1,5×, 1.080 richieste/mese, qualità non misurata) · <b>Kimi K3.1 Pro</b> (1,5×, 735 richieste/mese, qualità non misurata) · <b>Kimi K3</b> (1,5×, 490 richieste/mese, qualità non misurata) · <b>Qwen3.8 Max</b> (1,5×, 810 richieste/mese, 67,7%) · <b>Grok 4.7</b> (1,5×, 845 richieste/mese, qualità non misurata) — modelli capaci ma con un contratto da 1,5×: il listino è da modello premium, l'allowance no. Restano ottimi per l'attività singola difficile, non come default di sessione.</li><li><b>Beam Free</b>, <b>Grok 4.7</b>, <b>GPT 6 Luna</b>, <b>GPT 5.6 Luna</b>, <b>Claude Haiku 5.5</b> — <b>30 giorni</b> di retention lato provider: usabili per uso personale, da evitare per contenuti sensibili.</li></ul>
 
 <h2><span class="n">05</span>Compatibilità con Hermes</h2>
 <p class="lede">Stato dichiarato dalla doc ufficiale per i client che inviano l'header di sessione (aggiornato
@@ -182,7 +182,7 @@ a ogni run), più le verifiche fatte su questa installazione.</p>
 
 <h2><span class="n">06</span>Privacy, riepilogo per modello</h2>
 <p class="lede">Dati letti dalla tabella privacy della doc ufficiale a ogni run.</p>
-<div class="scroll"><table><thead><tr><th>Modelli</th><th>Training sui dati</th><th>Retention</th><th>Verdetto d'uso</th></tr></thead><tbody><tr><td>GLM-5.2, GLM-5.3, GLM-5.3-Flash, Gemini 4 Argon, Hy3, Hy4, Hy4 preview, Kimi K2.7 Code, Kimi K3, Kimi K3.1 Pro, LongCat-2.0, MiMo-V2.5, MiMo-V2.5-Pro, MiMo-V2.6-Flash, MiMo-V2.6-Pro, MiniMax M3, MiniMax M3.1 Flash, Qwen3.7 Plus, Qwen3.8 Flash, Qwen3.8 Max, Step 5 Preview</td><td>Not used</td><td><span class="tag">0 days</span></td><td>uso personale ok</td></tr><tr><td>DeepSeek V4 Pro, DeepSeek V4.1 Flash</td><td>Not used</td><td><span class="tag no">0 days*</span></td><td>uso personale ok</td></tr><tr><td>Beam Free, Claude Haiku 5.5, Crouton Alpha Free, GPT 5.6 Luna, GPT 6 Luna, Grok 4.7</td><td>Not used</td><td><span class="tag">30 days</span></td><td>uso personale ok, evita contenuti sensibili</td></tr><tr><td>Iceman Contributor Free, Muse Spark 1.2 Contributor, Muse Spark 1.3 Contributor</td><td>Yes — <b>addestra sui tuoi dati</b></td><td><span class="tag no">Not ZDR</span></td><td>da escludere</td></tr></tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Modelli</th><th>Training sui dati</th><th>Retention</th><th>Verdetto d'uso</th></tr></thead><tbody><tr><td>GLM-5.2, GLM-5.3, GLM-5.3-Flash, Gemini 4 Argon, Hy3, Hy4, Hy4 preview, Kimi K2.7 Code, Kimi K3, Kimi K3.1 Pro, LongCat 2.5 Free, LongCat-2.0, MiMo-V2.5, MiMo-V2.5-Pro, MiMo-V2.6-Flash, MiMo-V2.6-Pro, MiniMax M3, MiniMax M3.1 Flash, Qwen3.7 Plus, Qwen3.8 Flash, Qwen3.8 Max, Step 5 Preview</td><td>Not used</td><td><span class="tag">0 days</span></td><td>uso personale ok</td></tr><tr><td>DeepSeek V4 Pro, DeepSeek V4.1 Flash</td><td>Not used</td><td><span class="tag no">0 days*</span></td><td>uso personale ok</td></tr><tr><td>Beam Free, Claude Haiku 5.5, GPT 5.6 Luna, GPT 6 Luna, Grok 4.7</td><td>Not used</td><td><span class="tag">30 days</span></td><td>uso personale ok, evita contenuti sensibili</td></tr><tr><td>Iceman Contributor Free, Muse Spark 1.2 Contributor, Muse Spark 1.3 Contributor</td><td>Yes — <b>addestra sui tuoi dati</b></td><td><span class="tag no">Not ZDR</span></td><td>da escludere</td></tr></tbody></table></div>
 <div class="note"><b>Accordo ZDR DeepSeek.</b> La doc dichiara la validità fino al <b>30 novembre 2026</b>; l'accordo è rinnovato mensilmente, quindi la data va ricontrollata a ogni rinnovo. Il tracker la confronta a ogni run e la segnala nel log quando cambia.</div>
 
 
@@ -195,6 +195,7 @@ Fonte primaria: <code>opencode.ai/docs/go</code>.</p>
 <table>
 <thead><tr><th style="width:110px">Data</th><th>Cambiamenti rilevati</th></tr></thead>
 <tbody>
+<tr><td class="num">2026-11-10</td><td>➕ LongCat 2.5 Free: nuovo nel listino — in 0, out 0, allowance illimitata*, — req/mese · ➖ Crouton Alpha Free: rimosso dalla doc · 🔌 Relay: + longcat-2.5-free · − crouton-alpha-free</td></tr>
 <tr><td class="num">2026-11-07</td><td>➕ Crouton Alpha Free: nuovo nel listino — in 0, out 0, allowance illimitata*, — req/mese</td></tr>
 <tr><td class="num">2026-11-06</td><td>🔌 Relay: + crouton-alpha-free</td></tr>
 <tr><td class="num">2026-11-05</td><td>➕ Hy4: nuovo nel listino — in 0,83, out 2,5, allowance $60, 13.500 req/mese · 🔌 Relay: + hy4</td></tr>
@@ -231,7 +232,7 @@ Fonte primaria: <code>opencode.ai/docs/go</code>.</p>
 </div>
 
 <footer>
-Report aggiornato il <b>7 novembre 2026</b> da uno script Python: nessun testo è scritto a mano.<br>
+Report rigenerato il <b>10 novembre 2026</b> da uno script Python: nessun testo è scritto a mano.<br>
 · opencode.ai/docs/go — piani, prezzi, limiti mensili, stime richieste, peak hours, privacy, ZDR e model ID (fonte primaria, letta a ogni run)<br>· models.dev (provider opencode-go) — contesto, modalità, open weights, data di rilascio<br>· opencode.ai/zen/go/v1/models — catalogo realmente servito dal relay<br>· llm-stats / morphllm SWE-bench Pro — aggregato vendor e terzi, agosto 2026<br>· aicodingdaily — comparativa su harness OpenCode con 4 progetti reali, 3 settembre 2026<br><br>
 python 3.14.9 · modelli documentati 32<br>
 I benchmark di terze parti sono rilevati su harness diversi: non confrontabili al punto percentuale. Le stime di richieste al mese sono quelle pubblicate dalla doc ufficiale.
